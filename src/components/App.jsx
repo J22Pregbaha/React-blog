@@ -12,11 +12,11 @@ import Home from "./Home";
 import Post from "./Post";
 
 export default function App() {
+  const [posts, setPosts] = useState([]);
+  
   useEffect(() => {
     fetchPosts();
-  });
-
-  const [posts, setPosts] = useState([]);
+  }, []);
 
   const fetchPosts = async () => {
     const fetchPosts = await fetch('/posts');
@@ -34,12 +34,16 @@ export default function App() {
 
     axios
       .post('/compose', postData)
-      .then(() => console.log('Post Created'))
+      .then((response) => {
+        console.log(response);
+      })
       .catch(err => {
         console.error(err);
       });
 
-    fetchPosts();
+      setPosts((previousPosts) => {
+        return [...previousPosts, postData];
+      });
   }
 
   return (

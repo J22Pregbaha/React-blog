@@ -7,17 +7,17 @@ function Post() {
 
   useEffect(() => {
     fetchPost();
-  });
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   const fetchPost = async () => {
     const fetchPost = await fetch('/posts/' + postId);
 
-    const post = await fetchPost.json();
-
-    console.log(post);
+    const currentPost = await fetchPost.json();
 
     setPost(() => {
-      return post;
+      return currentPost;
     });
   };
 
