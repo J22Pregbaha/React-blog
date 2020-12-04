@@ -9,7 +9,7 @@ function PostCard(props) {
         {props.content.length > 100
           ? props.content.substring(0, 100) + "..."
           : props.content}{" "}
-        <Link to={`/posts/${props.index}`}>Read more</Link>
+        <Link to={`/posts/${props.id}`}>Read more</Link>
       </p>
     </div>
   );

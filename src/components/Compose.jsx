@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import Alert from "./Alert";
 
 function Compose(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+
+  function resetForm() {
+    title === "" && content !== ""
+      ? setResponseMessage("Please provide a title")
+      : title !== "" && content === ""
+      ? setResponseMessage("Please provide content")
+      : title === "" && content === ""
+      ? setResponseMessage("Please fill all entries")
+      : props.submitPost(title, content);
+
+    title !== "" && content !== "" && setSubmitted(true);
+  }
 
   return (
     <div className="container">
+      {responseMessage !== "" ? (
+        <Alert type="warning" output={responseMessage} />
+      ) : null}
+
       <h1>Compose</h1>
       <form
         method="post"
         onSubmit={(event) => {
           event.preventDefault();
-          props.submitPost(title, content);
-          setTitle("");
-          setContent("");
-          setSubmitted(true);
+
+          resetForm();
         }}
       >
         <div className="form-group">

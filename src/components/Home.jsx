@@ -10,9 +10,9 @@ function Home(props) {
         return (
           <PostCard
             key={index}
-            index={index}
+            id={post._id}
             title={post.title}
-            content={post.content}
+            content={post.body}
             allPosts={props.allPosts}
           />
         );
