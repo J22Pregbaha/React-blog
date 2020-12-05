@@ -13,7 +13,6 @@ function Home(props) {
             id={post._id}
             title={post.title}
             content={post.body}
-            allPosts={props.allPosts}
           />
         );
       })}

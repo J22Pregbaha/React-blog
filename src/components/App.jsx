@@ -18,15 +18,15 @@ export default function App() {
     fetchPosts();
   }, []);
 
-  const fetchPosts = async () => {
-    const fetchPosts = await fetch('/posts');
-
-    const allPosts = await fetchPosts.json();
-
-    console.log(allPosts);
-    setPosts(() => {
-      return allPosts;
-    });
+  const fetchPosts = () => {    
+    setInterval(async () => {
+        const fetchPosts = await fetch('/posts');
+        const allPosts = await fetchPosts.json();
+        console.log(allPosts);
+        
+        setPosts(() => allPosts);
+      }, 1000
+    );
   };
 
   function addPost(title, content) {
@@ -39,10 +39,6 @@ export default function App() {
       })
       .catch(err => {
         console.error(err);
-      });
-
-      setPosts((previousPosts) => {
-        return [...previousPosts, postData];
       });
   }
 
