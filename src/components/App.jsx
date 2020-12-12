@@ -19,7 +19,7 @@ export default function App() {
   }, []);
 
   const fetchPosts = () => {    
-    setInterval(async () => {
+    const intervalId = setInterval(async () => {
         const fetchPosts = await fetch('/posts');
         const allPosts = await fetchPosts.json();
         console.log(allPosts);
@@ -27,6 +27,10 @@ export default function App() {
         setPosts(() => allPosts);
       }, 1000
     );
+
+    return () => {
+      clearInterval(intervalId);
+    };
   };
 
   function addPost(title, content) {
